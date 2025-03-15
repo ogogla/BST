@@ -309,6 +309,7 @@ public:
 };
 
 void showMenu() {
+    std::cout << "-1. Menu\n";
     std::cout << "0. Exit\n";
     std::cout << "1. Display\n";
     std::cout << "2. Insert\n";
@@ -329,8 +330,8 @@ int main() {
     BST tree;
     int choice, value, k, L, R, n1, n2;
     std::vector<int> values;
+    showMenu();
     do {
-        showMenu();
         std::cout << "Enter choice: ";
         std::cin >> choice;
         switch (choice) {
@@ -397,6 +398,14 @@ int main() {
                 std::cout << "Enter range [L, R]: ";
                 std::cin >> L >> R;
                 tree.deleteRange(L, R);
+                break;
+            case -1:
+                showMenu();
+                continue;
+            default:
+                if (choice != 0) {
+                    std::cout << "Invalid choice! Please try again.\n";
+                }
                 break;
         }
     } while (choice != 0);
