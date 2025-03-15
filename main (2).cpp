@@ -196,6 +196,13 @@ public:
         root = insertNode(root, val);
     }
 
+    // Функция добавления нескольких элементов
+    void insertMultiple(const std::vector<int>& values) {
+        for (int val : values) {
+            insert(val);
+        }
+    }
+
     void display() {
         if (root == nullptr) {
             std::cout << "List is empty!\n";
@@ -305,21 +312,23 @@ void showMenu() {
     std::cout << "0. Exit\n";
     std::cout << "1. Display\n";
     std::cout << "2. Insert\n";
-    std::cout << "3. Search\n";
-    std::cout << "4. Delete\n";
-    std::cout << "5. Find Min\n";
-    std::cout << "6. Find Max\n";
-    std::cout << "7. Find k-th smallest element\n";
-    std::cout << "8. Find predecessor and successor\n";
-    std::cout << "9. Check if BST\n";
-    std::cout << "10. Find LCA\n";
-    std::cout << "11. Convert BST to DLL\n";
-    std::cout << "12. Delete nodes in range\n";
+    std::cout << "3. Insert multiple elements\n";
+    std::cout << "4. Search\n";
+    std::cout << "5. Delete\n";
+    std::cout << "6. Find Min\n";
+    std::cout << "7. Find Max\n";
+    std::cout << "8. Find k-th smallest element\n";
+    std::cout << "9. Find predecessor and successor\n";
+    std::cout << "10. Check if BST\n";
+    std::cout << "11. Find LCA\n";
+    std::cout << "12. Convert BST to DLL\n";
+    std::cout << "13. Delete nodes in range\n";
 }
 
 int main() {
     BST tree;
     int choice, value, k, L, R, n1, n2;
+    std::vector<int> values;
     do {
         showMenu();
         std::cout << "Enter choice: ";
@@ -334,45 +343,57 @@ int main() {
                 tree.insert(value);
                 break;
             case 3:
+                std::cout << "Enter number of elements to insert: ";
+                int count;
+                std::cin >> count;
+                values.clear();
+                for (int i = 0; i < count; ++i) {
+                    std::cout << "Enter element " << i + 1 << ": ";
+                    std::cin >> value;
+                    values.push_back(value);
+                }
+                tree.insertMultiple(values);
+                break;
+            case 4:
                 std::cout << "Enter value to search: ";
                 std::cin >> value;
                 std::cout << (tree.search(value) ? "Found" : "Not Found") << std::endl;
                 break;
-            case 4:
+            case 5:
                 std::cout << "Enter value to delete: ";
                 std::cin >> value;
                 tree.pop(value);
                 break;
-            case 5:
+            case 6:
                 tree.min();
                 std::cout << std::endl;
                 break;
-            case 6:
+            case 7:
                 tree.max();
                 std::cout << std::endl;
                 break;
-            case 7:
+            case 8:
                 std::cout << "Enter k: ";
                 std::cin >> k;
                 std::cout << "k-th smallest element: " << tree.kthSmallest(k) << std::endl;
                 break;
-            case 8:
+            case 9:
                 std::cout << "Enter value: ";
                 std::cin >> value;
                 tree.findPreSuc(value);
                 break;
-            case 9:
+            case 10:
                 std::cout << (tree.isBST() ? "Is BST" : "Is not BST") << std::endl;
                 break;
-            case 10:
+            case 11:
                 std::cout << "Enter two values: ";
                 std::cin >> n1 >> n2;
                 std::cout << "LCA: " << tree.findLCA(n1, n2) << std::endl;
                 break;
-            case 11:
+            case 12:
                 tree.BSTToDLL();
                 break;
-            case 12:
+            case 13:
                 std::cout << "Enter range [L, R]: ";
                 std::cin >> L >> R;
                 tree.deleteRange(L, R);
